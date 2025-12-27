@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from importlib import metadata
 from typing import Any
 
-import async_timeout
 from aiohttp.client import ClientError, ClientResponseError, ClientSession
 from aiohttp.hdrs import METH_GET
 from yarl import URL
@@ -63,7 +62,7 @@ class CEMM:
             self._close_session = True
 
         try:
-            async with async_timeout.timeout(self.request_timeout):
+            async with asyncio.timeout(self.request_timeout):
                 response = await self.session.request(
                     method,
                     url,
